@@ -1,0 +1,902 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santhiram Engineering College | Campus Lost & Found</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #1e293b;
+    min-height: 100vh;
+}
+
+button, input, select, textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    padding: 11px 15px;
+    background: #2563eb;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    margin-top: 6px;
+    background: white;
+}
+
+label {
+    display: block;
+    margin-top: 14px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+h1, h2, h3 {
+    margin-bottom: 12px;
+}
+
+p {
+    line-height: 1.5;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* LOGIN PAGE */
+#loginPage {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #0f172a, #1d4ed8);
+}
+
+.login-card {
+    width: 100%;
+    max-width: 440px;
+    padding: 30px;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px #0003;
+}
+
+.college-name {
+    text-align: center;
+    color: #1d4ed8;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+.login-logo {
+    width: 65px;
+    height: 65px;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 18px;
+    border-radius: 16px;
+    background: #dbeafe;
+    font-size: 30px;
+}
+
+.login-card h1 {
+    text-align: center;
+    font-size: 24px;
+}
+
+.login-card .subtitle {
+    text-align: center;
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+.password-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.password-row input {
+    flex: 1;
+}
+
+.password-row button {
+    margin-top: 6px;
+    background: #475569;
+}
+
+.message {
+    margin-top: 12px;
+    color: #dc2626;
+    font-size: 14px;
+}
+
+.small-note {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 15px;
+}
+
+/* APPLICATION HEADER */
+header {
+    background: #0f172a;
+    color: white;
+    padding: 22px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+header p {
+    color: #cbd5e1;
+    font-size: 14px;
+}
+
+header .college-header {
+    color: #93c5fd;
+    font-weight: 800;
+    letter-spacing: 1px;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.logout {
+    background: #dc2626;
+}
+
+.container {
+    width: min(1150px, 92%);
+    margin: 25px auto;
+}
+
+.welcome {
+    margin-bottom: 20px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.stat-card, .panel, .item-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 3px 12px #0f172a0c;
+}
+
+.stat-card p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.stat-card h2 {
+    font-size: 30px;
+    margin: 8px 0 0;
+}
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+.primary-btn {
+    width: 100%;
+    margin-top: 18px;
+}
+
+.secondary {
+    background: #475569;
+}
+
+.filters {
+    display: grid;
+    grid-template-columns: 1fr 150px;
+    gap: 10px;
+    margin: 12px 0 18px;
+}
+
+.item-list {
+    display: grid;
+    gap: 12px;
+}
+
+.item-card h3 {
+    margin-bottom: 8px;
+}
+
+.item-card p {
+    color: #475569;
+    font-size: 14px;
+    margin: 5px 0;
+    overflow-wrap: anywhere;
+}
+
+.tag {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 20px;
+    background: #dbeafe;
+    color: #1d4ed8;
+    font-size: 12px;
+    margin: 0 5px 8px 0;
+}
+
+.tag.found {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.tag.status {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.item-card button {
+    margin: 10px 5px 0 0;
+    font-size: 13px;
+}
+
+.empty {
+    text-align: center;
+    padding: 30px 10px;
+    color: #64748b;
+}
+
+footer {
+    text-align: center;
+    padding: 25px 15px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+@media (max-width: 800px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .filters {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        align-items: flex-start;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN PAGE -->
+<section id="loginPage">
+    <div class="login-card">
+
+        <div class="college-name">
+            SANTHIRAM ENGINEERING COLLEGE
+        </div>
+
+        <div class="login-logo">🔎</div>
+
+        <h1>Campus Lost & Found</h1>
+        <p class="subtitle">Sign in with your college email</p>
+
+        <form id="loginForm">
+            <label for="email">College Email</label>
+            <input
+                type="email"
+                id="email"
+                placeholder="example@srecnandyal.edu.in"
+                required
+            >
+
+            <label for="password">Password</label>
+
+            <div class="password-row">
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter password"
+                    minlength="6"
+                    required
+                >
+                <button type="button" id="togglePassword">
+                    Show
+                </button>
+            </div>
+
+            <button type="submit" class="primary-btn">
+                Login
+            </button>
+
+            <p id="loginMessage" class="message"></p>
+        </form>
+
+        <p class="small-note">
+            Demo login only. This page checks the email format
+            but does not verify your actual college account.
+        </p>
+    </div>
+</section>
+
+<!-- MAIN APPLICATION -->
+<section id="appPage" class="hidden">
+
+    <header>
+        <div>
+            <p class="college-header">
+                SANTHIRAM ENGINEERING COLLEGE
+            </p>
+            <h1>🔎 Campus Lost & Found</h1>
+            <p>Report lost items and help return found belongings.</p>
+        </div>
+
+        <div class="header-actions">
+            <span id="loggedInEmail"></span>
+            <button class="logout" id="logoutBtn">Logout</button>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <div class="welcome">
+            <h2>Dashboard</h2>
+            <p>Manage lost and found reports on your campus.</p>
+        </div>
+
+        <!-- DASHBOARD STATISTICS -->
+        <div class="stats">
+            <div class="stat-card">
+                <p>Total Reports</p>
+                <h2 id="totalCount">0</h2>
+            </div>
+
+            <div class="stat-card">
+                <p>Lost Items</p>
+                <h2 id="lostCount">0</h2>
+            </div>
+
+            <div class="stat-card">
+                <p>Found Items</p>
+                <h2 id="foundCount">0</h2>
+            </div>
+        </div>
+
+        <div class="main-grid">
+
+            <!-- REPORT FORM -->
+            <section class="panel">
+                <h2>Report an Item</h2>
+                <p>Enter the details of a lost or found item.</p>
+
+                <form id="reportForm">
+
+                    <label for="reportType">Report Type</label>
+                    <select id="reportType" required>
+                        <option value="Lost">Lost Item</option>
+                        <option value="Found">Found Item</option>
+                    </select>
+
+                    <label for="itemName">Item Name</label>
+                    <input
+                        id="itemName"
+                        placeholder="e.g. College ID card"
+                        required
+                    >
+
+                    <label for="category">Category</label>
+                    <select id="category" required>
+                        <option value="ID Card">ID Card</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Books">Books</option>
+                        <option value="Bag">Bag</option>
+                        <option value="Keys">Keys</option>
+                        <option value="Wallet">Wallet</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                    <label for="location">Location</label>
+                    <input
+                        id="location"
+                        placeholder="e.g. Library, Block A"
+                        required
+                    >
+
+                    <label for="itemDate">Date</label>
+                    <input type="date" id="itemDate" required>
+
+                    <label for="description">Description</label>
+                    <textarea
+                        id="description"
+                        rows="3"
+                        placeholder="Colour, brand or identifying details"
+                        required
+                    ></textarea>
+
+                    <label for="contact">
+                        Contact Information (optional)
+                    </label>
+                    <input
+                        id="contact"
+                        placeholder="Email or phone number"
+                    >
+
+                    <button type="submit" class="primary-btn">
+                        Submit Report
+                    </button>
+                </form>
+            </section>
+
+            <!-- SEARCH AND REPORT LIST -->
+            <section class="panel">
+                <h2>Search Reports</h2>
+
+                <div class="filters">
+                    <input
+                        id="searchInput"
+                        placeholder="Search by item or location..."
+                    >
+
+                    <select id="typeFilter">
+                        <option value="All">All Types</option>
+                        <option value="Lost">Lost Items</option>
+                        <option value="Found">Found Items</option>
+                    </select>
+                </div>
+
+                <div class="filters">
+                    <select id="statusFilter">
+                        <option value="All">All Statuses</option>
+                        <option value="Open">Open</option>
+                        <option value="Under Review">Under Review</option>
+                        <option value="Matched">Matched</option>
+                        <option value="Returned / Closed">Returned / Closed</option>
+                    </select>
+
+                    <button
+                        id="clearFilters"
+                        class="secondary"
+                        type="button"
+                    >
+                        Clear Filters
+                    </button>
+                </div>
+
+                <div id="itemList" class="item-list"></div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        Santhiram Engineering College
+        <br>
+        Campus Lost & Found Application | Student Project
+        <br>
+        Demo data is stored in this browser only.
+    </footer>
+
+</section>
+
+<script>
+const loginPage = document.getElementById("loginPage");
+const appPage = document.getElementById("appPage");
+const loginForm = document.getElementById("loginForm");
+const loginMessage = document.getElementById("loginMessage");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+
+const COLLEGE_DOMAIN = "@srecnandyal.edu.in";
+
+let currentEmail = sessionStorage.getItem("campusUser") || "";
+let reports = [];
+
+// Load saved reports safely.
+try {
+    reports = JSON.parse(
+        localStorage.getItem("campusLostFoundReports") || "[]"
+    );
+
+    if (!Array.isArray(reports)) {
+        reports = [];
+    }
+} catch (error) {
+    reports = [];
+}
+
+// Set today's date.
+document.getElementById("itemDate").value =
+    new Date().toISOString().slice(0, 10);
+
+// SHOW OR HIDE PASSWORD
+document.getElementById("togglePassword")
+.addEventListener("click", function () {
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        this.textContent = "Hide";
+    } else {
+        passwordInput.type = "password";
+        this.textContent = "Show";
+    }
+});
+
+// LOGIN
+loginForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const email = emailInput.value.trim().toLowerCase();
+    const password = passwordInput.value;
+
+    if (!email.endsWith(COLLEGE_DOMAIN)) {
+        loginMessage.textContent =
+            "Use your college email ending in @srecnandyal.edu.in.";
+        return;
+    }
+
+    if (password.length < 6) {
+        loginMessage.textContent =
+            "Password must contain at least 6 characters.";
+        return;
+    }
+
+    // Demonstration login only, not real account verification.
+    currentEmail = email;
+    sessionStorage.setItem("campusUser", email);
+
+    loginMessage.textContent = "";
+    passwordInput.value = "";
+
+    showApplication();
+});
+
+// LOGOUT
+document.getElementById("logoutBtn")
+.addEventListener("click", function () {
+    sessionStorage.removeItem("campusUser");
+    currentEmail = "";
+
+    appPage.classList.add("hidden");
+    loginPage.classList.remove("hidden");
+
+    loginForm.reset();
+    loginMessage.textContent = "";
+});
+
+// SHOW APPLICATION
+function showApplication() {
+    if (!currentEmail.endsWith(COLLEGE_DOMAIN)) {
+        loginPage.classList.remove("hidden");
+        appPage.classList.add("hidden");
+        return;
+    }
+
+    loginPage.classList.add("hidden");
+    appPage.classList.remove("hidden");
+
+    document.getElementById("loggedInEmail").textContent =
+        currentEmail;
+
+    renderReports();
+}
+
+// SAVE REPORTS
+function saveReports() {
+    localStorage.setItem(
+        "campusLostFoundReports",
+        JSON.stringify(reports)
+    );
+}
+
+// CREATE A REPORT
+document.getElementById("reportForm")
+.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const nextNumber = reports.reduce((max, report) => {
+        const number =
+            Number(String(report.id).replace("LF-", "")) || 0;
+        return Math.max(max, number);
+    }, 1000) + 1;
+
+    const newReport = {
+        id: "LF-" + nextNumber,
+        type: document.getElementById("reportType").value,
+        name: document.getElementById("itemName").value.trim(),
+        category: document.getElementById("category").value,
+        location: document.getElementById("location").value.trim(),
+        date: document.getElementById("itemDate").value,
+        description: document.getElementById("description").value.trim(),
+        contact: document.getElementById("contact").value.trim(),
+        status: "Open",
+        reporter: currentEmail,
+        createdAt: new Date().toISOString()
+    };
+
+    reports.unshift(newReport);
+    saveReports();
+
+    this.reset();
+
+    document.getElementById("itemDate").value =
+        new Date().toISOString().slice(0, 10);
+
+    renderReports();
+
+    alert(
+        "Report submitted successfully! Report ID: " +
+        newReport.id
+    );
+});
+
+// UPDATE REPORT STATUS
+function updateStatus(id) {
+    const report = reports.find(item => item.id === id);
+
+    if (!report) return;
+
+    const allowedStatuses = [
+        "Open",
+        "Under Review",
+        "Matched",
+        "Returned / Closed"
+    ];
+
+    const chosenStatus = prompt(
+        "Enter one of these statuses:\nOpen\nUnder Review\nMatched\nReturned / Closed",
+        report.status
+    );
+
+    if (chosenStatus === null) return;
+
+    const normalized = allowedStatuses.find(
+        status =>
+            status.toLowerCase() ===
+            chosenStatus.trim().toLowerCase()
+    );
+
+    if (!normalized) {
+        alert("Please enter one of the listed status names.");
+        return;
+    }
+
+    report.status = normalized;
+
+    saveReports();
+    renderReports();
+}
+
+// VIEW REPORT DETAILS
+function viewReport(id) {
+    const report = reports.find(item => item.id === id);
+
+    if (!report) return;
+
+    alert(
+        "Report ID: " + report.id +
+        "\nType: " + report.type +
+        "\nItem: " + report.name +
+        "\nCategory: " + report.category +
+        "\nLocation: " + report.location +
+        "\nDate: " + report.date +
+        "\nDescription: " + report.description +
+        "\nStatus: " + report.status +
+        "\nReported by: " + report.reporter +
+        (report.contact ? "\nContact: " + report.contact : "")
+    );
+}
+
+// DELETE REPORT
+function deleteReport(id) {
+    const report = reports.find(item => item.id === id);
+
+    if (!report) return;
+
+    if (report.reporter !== currentEmail) {
+        alert("You can delete only your own reports.");
+        return;
+    }
+
+    if (!confirm("Delete report " + id + "?")) return;
+
+    reports = reports.filter(item => item.id !== id);
+
+    saveReports();
+    renderReports();
+}
+
+// DISPLAY REPORTS AND STATISTICS
+function renderReports() {
+    const list = document.getElementById("itemList");
+
+    document.getElementById("totalCount").textContent =
+        reports.length;
+
+    document.getElementById("lostCount").textContent =
+        reports.filter(item => item.type === "Lost").length;
+
+    document.getElementById("foundCount").textContent =
+        reports.filter(item => item.type === "Found").length;
+
+    const query = document.getElementById("searchInput")
+        .value.trim().toLowerCase();
+
+    const type = document.getElementById("typeFilter").value;
+    const status = document.getElementById("statusFilter").value;
+
+    const filteredReports = reports.filter(item => {
+        const searchableText = [
+            item.name,
+            item.category,
+            item.location,
+            item.description,
+            item.id
+        ].join(" ").toLowerCase();
+
+        return (
+            searchableText.includes(query) &&
+            (type === "All" || item.type === type) &&
+            (status === "All" || item.status === status)
+        );
+    });
+
+    list.replaceChildren();
+
+    if (filteredReports.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "empty";
+
+        empty.textContent = reports.length === 0
+            ? "No reports yet. Submit your first report."
+            : "No matching reports found.";
+
+        list.appendChild(empty);
+        return;
+    }
+
+    filteredReports.forEach(item => {
+        const card = document.createElement("article");
+        card.className = "item-card";
+
+        const title = document.createElement("h3");
+        title.textContent = item.name;
+
+        const typeTag = document.createElement("span");
+        typeTag.className =
+            "tag" + (item.type === "Found" ? " found" : "");
+        typeTag.textContent = item.type;
+
+        const statusTag = document.createElement("span");
+        statusTag.className = "tag status";
+        statusTag.textContent = item.status;
+
+        const details = document.createElement("p");
+        details.textContent =
+            "Report ID: " + item.id +
+            " | Category: " + item.category;
+
+        const location = document.createElement("p");
+        location.textContent = "Location: " + item.location;
+
+        const date = document.createElement("p");
+        date.textContent = "Date: " + item.date;
+
+        const description = document.createElement("p");
+        description.textContent = item.description;
+
+        const viewButton = document.createElement("button");
+        viewButton.textContent = "View Details";
+        viewButton.addEventListener(
+            "click",
+            () => viewReport(item.id)
+        );
+
+        const statusButton = document.createElement("button");
+        statusButton.textContent = "Update Status";
+        statusButton.className = "secondary";
+        statusButton.addEventListener(
+            "click",
+            () => updateStatus(item.id)
+        );
+
+        card.append(
+            title,
+            typeTag,
+            statusTag,
+            details,
+            location,
+            date,
+            description,
+            viewButton,
+            statusButton
+        );
+
+        if (item.reporter === currentEmail) {
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.style.background = "#dc2626";
+            deleteButton.addEventListener(
+                "click",
+                () => deleteReport(item.id)
+            );
+            card.appendChild(deleteButton);
+        }
+
+        list.appendChild(card);
+    });
+}
+
+// SEARCH AND FILTER EVENTS
+document.getElementById("searchInput")
+.addEventListener("input", renderReports);
+
+document.getElementById("typeFilter")
+.addEventListener("change", renderReports);
+
+document.getElementById("statusFilter")
+.addEventListener("change", renderReports);
+
+// CLEAR FILTERS
+document.getElementById("clearFilters")
+.addEventListener("click", function () {
+    document.getElementById("searchInput").value = "";
+    document.getElementById("typeFilter").value = "All";
+    document.getElementById("statusFilter").value = "All";
+
+    renderReports();
+});
+
+// RESTORE DEMO SESSION
+if (currentEmail.endsWith(COLLEGE_DOMAIN)) {
+    showApplication();
+} else {
+    sessionStorage.removeItem("campusUser");
+    loginPage.classList.remove("hidden");
+    appPage.classList.add("hidden");
+}
+</script>
+
+</body>
+</html>
